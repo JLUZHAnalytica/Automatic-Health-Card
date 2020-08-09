@@ -34,3 +34,17 @@
 **请谨慎填写学号范围！！！**
 
 ## Web版本
+
+普通接口:`/username=<username>&password=<password>/number=<number>`
+><username>:学号
+
+><password>:密码(一般为身份证后六位)
+
+><number>:需要填写健康卡的学号
+
+批量接口:`/username=<username>&password=<password>/start=<start>&end=<end>`
+><username>:学号
+
+><password>:密码(一般为身份证后六位)
+
+><start> <end>:需要批量填写健康卡的学号范围
