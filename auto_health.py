@@ -3,7 +3,7 @@ import json
 import time
 from getcookie import get_cookie
 
-JSESSIONID = get_cookie()#"E7BED4686E7A0F72DC525FF89FCFFF96"
+JSESSIONID = ""  # "E7BED4686E7A0F72DC525FF89FCFFF96"
 headers = {
     "x-requested-with": "XMLHttpRequest",
     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) ,Chrome/84.0.4147.105 Safari/537.36",
@@ -119,6 +119,12 @@ def complete(number):
 
 
 if __name__ == "__main__":
+    choice = input("请选择输入获取 JSESSIONID 的方式  1.手动输入 2.打开浏览器获取(需要安装selenium): ")
+    if choice == '2':
+        from getcookie import get_cookie
+        JSESSIONID = get_cookie()
+    else:
+        JSESSIONID = input("请输入登陆凭证 JSESSIONID:")
     ran = eval(input("请输入需要填写健康卡的学号范围(格式：19200101,19200130)："))
     if ran[0] < 10000000:
         print("学号输入格式错误，请重新输入。")
