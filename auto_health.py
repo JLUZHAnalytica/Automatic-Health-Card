@@ -1,8 +1,9 @@
 import requests
 import json
 import time
+from getcookie import get_cookie
 
-JSESSIONID = "E7BED4686E7A0F72DC525FF89FCFFF96"
+JSESSIONID = get_cookie()#"E7BED4686E7A0F72DC525FF89FCFFF96"
 headers = {
     "x-requested-with": "XMLHttpRequest",
     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) ,Chrome/84.0.4147.105 Safari/537.36",
