@@ -2,8 +2,8 @@ import requests
 import json
 import time
 from getcookie import get_cookie
+from setting import *
 
-JSESSIONID = ""  # "E7BED4686E7A0F72DC525FF89FCFFF96"
 headers = {
     "x-requested-with": "XMLHttpRequest",
     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) ,Chrome/84.0.4147.105 Safari/537.36",
@@ -19,11 +19,6 @@ headers = {
     "cookie": "JSESSIONID=" + JSESSIONID
 }
 error_list = []
-
-
-def output_to_file(filename, data):
-    with open(filename, 'w') as fd:
-        fd.write(json.dumps(data, indent=4, ensure_ascii=False))
 
 
 def query_record(number, only_today=True):
@@ -119,13 +114,13 @@ def complete(number):
 
 
 if __name__ == "__main__":
-    choice = input("请选择输入获取 JSESSIONID 的方式  1.手动输入 2.打开浏览器获取(需要安装selenium): ")
-    if choice == '2':
-        from getcookie import get_cookie
-        JSESSIONID = get_cookie()
-    else:
-        JSESSIONID = input("请输入登陆凭证 JSESSIONID:")
-    ran = eval(input("请输入需要填写健康卡的学号范围(格式：19200101,19200130)："))
+    if input("是否需要打开浏览器自动获取 JSESSIONID :(若是请输入1)") == '1':
+        try:
+            from getcookie import get_cookie
+            JSESSIONID = get_cookie()
+        except Exception as e:
+            print("自动提取遇到错误，请使用手动提取 JSESSIONID 方式。 \n错误：" + str(e))
+    ran = eval(input("请输入需要填写健康卡的学号范围(格式：19200101,19200130):"))
     if ran[0] < 10000000:
         print("学号输入格式错误，请重新输入。")
     else:
