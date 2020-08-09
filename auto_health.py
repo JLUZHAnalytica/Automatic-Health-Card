@@ -114,7 +114,9 @@ def complete(number):
 
 
 if __name__ == "__main__":
-    if input("是否需要打开浏览器自动获取 JSESSIONID :(若是请输入1)") == '1':
+    print("为了全力做好学校新型冠状病毒感染的肺炎疫情防控工作，您承诺使用本软件提交的健康信息全部属实。")
+    print("如果需要填报的健康表的同学健康信息相比上次提交时有更新，请停止使用本软件，并及时在网页上进行填报。\n若需要填报与上次提交时一样的健康信息，请继续使用。")
+    if input("是否需要打开浏览器自动获取 JSESSIONID (若是请输入1): ") == '1':
         try:
             from getcookie import get_cookie
             JSESSIONID = get_cookie(username, password)
