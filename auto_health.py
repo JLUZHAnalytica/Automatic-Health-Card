@@ -117,7 +117,7 @@ if __name__ == "__main__":
     if input("是否需要打开浏览器自动获取 JSESSIONID :(若是请输入1)") == '1':
         try:
             from getcookie import get_cookie
-            JSESSIONID = get_cookie()
+            JSESSIONID = get_cookie(username, password)
         except Exception as e:
             print("自动提取遇到错误，请使用手动提取 JSESSIONID 方式。 \n错误：" + str(e))
     ran = eval(input("请输入需要填写健康卡的学号范围(格式：19200101,19200130):"))

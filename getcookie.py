@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from setting import *
 
 
 def getWeb():
@@ -43,7 +42,7 @@ def getWeb():
     return web
 
 
-def get_cookie():
+def get_cookie(username, password):
     web = getWeb()
     user = web.find_element_by_id("username")
     user.send_keys("{}".format(username))
