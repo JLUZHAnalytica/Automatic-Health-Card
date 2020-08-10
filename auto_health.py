@@ -1,7 +1,6 @@
 import requests
 import json
 import time
-from getcookie import get_cookie
 from setting import *
 
 headers = {
