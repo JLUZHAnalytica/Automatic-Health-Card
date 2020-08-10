@@ -29,7 +29,7 @@ def getWeb():
     options.add_argument('--disable-gpu')
     options.headless = True
     web = webdriver.Chrome(options=options)
-    url = "https://wxapp.jluzh.com/cas/?target=https://work.jluzh.com/default/work/jlzh/jkxxtb/jkxxcj.jsp"
+    url = "https://work.jluzh.com/default/work/jlzh/jkxxtb/jkxxcj.jsp"#"https://wxapp.jluzh.com/cas/?target=https://work.jluzh.com/default/work/jlzh/jkxxtb/jkxxcj.jsp"
     web.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
         "source": """
         Object.defineProperty(navigator, 'webdriver', {

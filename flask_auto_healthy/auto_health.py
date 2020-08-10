@@ -33,11 +33,12 @@ def query_record(number, headers, only_today=True):
             f"查询学号 {number} 成功，共计查询到 {len(data)} 份记录。 仅查询今日={only_today}")
     except Exception as e:
         if "统一身份认证平台" in r.text:
+            # print(r.text)
             print("JSESSIONID失效，请重新获取")
         else:
             print("遇到错误: "+str(e))
             print(r.text)
-        return
+        return []
 
     return data
 
@@ -57,7 +58,7 @@ def complete(number, headers):
     if len(query_record(number, headers)) != 0:
         print(f"学号 {number} 今日已经提交过健康卡，程序将不再提交")
         return False
-    last_card = query_record(number, False)[0]
+    last_card = query_record(number, headers, False)[0]
     health_card_data = {
         "entity": {
             "sqrid": last_card["SQRID"],
@@ -106,6 +107,7 @@ def complete(number, headers):
 
 def main(username,password,number):
     JSESSIONID = get_cookie(username,password)
+    # print(JSESSIONID)
     headers = {
         "x-requested-with": "XMLHttpRequest",
         "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) ,Chrome/84.0.4147.105 Safari/537.36",
