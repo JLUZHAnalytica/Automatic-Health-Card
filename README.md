@@ -18,26 +18,25 @@
 
 在浏览器打开 https://work.jluzh.com/default/work/jlzh/jkxxtb/jkxxcj.jsp 并登陆
 
-登陆成功后打开浏览器的开发者工具，在如下图所示的位置找到 JSESSIONID，并复制到 setting.py 里面对应的位置
+登陆成功后打开浏览器的开发者工具，在如下图所示的位置找到 `JSESSIONID`，并复制到 `setting.py` 里面对应的位置
 
 ![image](img/WX20200809-171001@2x.png)
 
-程序启动后，询问是否自动打开浏览器获取时，选择不打开，将自动从 setting.py 中读取。
+程序启动后，询问是否自动打开浏览器获取时，选择不打开，将自动从 `setting.py` 中读取。
 
+### 确定选择填写学号的方式
 
-### 启动程序
-
-`python auto_health.py`
-
-### 如何使用
-
-选择获取 JSESSIONID 的方法，选择自动获取法需要配置 selenium，推荐按照上文所讲的手动法
-
-有两种填写模式，A模式需要把学号填写在 setting.py 中的 number_list 中（注意list的赋值语法）
+有两种填写模式，A模式需要把学号填写在 `setting.py` 中的 `number_list` 中（注意list的赋值语法）
 
 默认选择的B模式为范围填写，闭区间内的所有学号都会被填写。如果只想填写一个人的健康卡，填写范围时逗号两边一样即可。
 
 **请谨慎填写学号范围！！！**
+
+### 启动程序
+
+请确保在启动程序之前已经写入并保存 `setting.py`
+
+在配置好python环境的命令行运行命令 `python auto_health.py`
 
 ## Web版本
 
