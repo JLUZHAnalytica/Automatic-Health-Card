@@ -15,7 +15,6 @@ headers = {
     "accept-encoding": "gzip, deflate, br",
     "accept-language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
     "content-length": "896",
-    "cookie": "JSESSIONID=" + JSESSIONID
 }
 error_list = []
 
@@ -128,6 +127,7 @@ if __name__ == "__main__":
             JSESSIONID = get_cookie(username, password)
         except Exception as e:
             print("自动提取遇到错误，请使用手动提取 JSESSIONID 方式。 \n错误：" + str(e))
+    headers.update({"cookie": "JSESSIONID=" + JSESSIONID})
     if input("请选择填写模式：\nA. 从 setting.py 中读取 number_lsit\nB. 手动输入学号范围\n请输入你的选择（默认B）: ") == "A":
         for number in number_lsit:
             complete(number)
