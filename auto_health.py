@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+import sys
 from setting import *
 
 headers = {
@@ -121,24 +122,30 @@ def output_error():
 if __name__ == "__main__":
     print("为了全力做好学校新型冠状病毒感染的肺炎疫情防控工作，您承诺使用本软件提交的健康信息全部属实。")
     print("如果需要填报的健康表的同学健康信息相比上次提交时有更新，请停止使用本软件，并及时在网页上进行填报。\n若需要填报与上次提交时一样的健康信息，请继续使用。")
-    if input("是否需要打开浏览器自动获取 JSESSIONID (若是请输入1): ") == '1':
+    if len(sys.argv)>1 or input("是否需要打开浏览器自动获取 JSESSIONID (若是请输入1): ") == '1':
         try:
             from getcookie import get_cookie
             JSESSIONID = get_cookie(username, password)
         except Exception as e:
             print("自动提取遇到错误，请使用手动提取 JSESSIONID 方式。 \n错误：" + str(e))
     headers.update({"cookie": "JSESSIONID=" + JSESSIONID})
-    if input("请选择填写模式：\nA. 从 setting.py 中读取 number_lsit\nB. 手动输入学号范围\n请输入你的选择（默认B）: ") == "A":
+    if len(sys.argv)>1 or input("请选择填写模式：\nA. 从 setting.py 中读取 number_lsit\nB. 手动输入学号范围\n请输入你的选择（默认B）: ") == "A":
         for number in number_lsit:
             complete(number)
         print(f"总计填写 {len(number_lsit)} 份健康表，其中错误 {len(error_list)} 份")
         output_error()
     else:
-        ran = eval(input("请输入需要填写健康卡的学号范围(格式：19200101,19200130):"))
-        if ran[0] < 10000000:
+        ran = eval(input('请输入需要填写健康卡的学号范围(格式："19200101","19200130"):'))
+        if len(ran[0]) != 8:
             print("学号输入格式错误，请重新输入。")
         else:
-            for number in range(ran[0], ran[1]+1):
+            if ran[0][0]=='0':
+                ran_s = eval(ran[0][1:])
+                ran_e = eval(ran[1][1:])
+            else:
+                ran_s = eval(ran[0])
+                ran_e = eval(ran[1])
+            for number in range(ran_s, ran_e+1):
                 complete(number)
-            print(f"总计填写 {ran[1]-ran[0]+1} 份健康表，其中错误 {len(error_list)} 份")
+            print(f"总计填写 {ran_e-ran_s+1} 份健康表，其中错误 {len(error_list)} 份")
             output_error()
