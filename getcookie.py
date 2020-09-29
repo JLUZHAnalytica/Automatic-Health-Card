@@ -1,4 +1,5 @@
 from selenium import webdriver
+import time
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
@@ -27,7 +28,7 @@ def getWeb():
     # options.add_argument('-headless')  # 无头参数
     # options.headless = True
     web = webdriver.Chrome(options=options)
-    url = "https://wxapp.jluzh.com/cas/?target=https://work.jluzh.com/default/work/jlzh/jkxxtb/jkxxcj.jsp"
+    url = "https://work.jluzh.edu.cn/default/work/jlzh/jkxxtb/jkxxcj.jsp"
     web.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
         "source": """
         Object.defineProperty(navigator, 'webdriver', {
@@ -44,12 +45,15 @@ def getWeb():
 
 def get_cookie(username, password):
     web = getWeb()
+    time.sleep(2)
     user = web.find_element_by_id("username")
     user.send_keys("{}".format(username))
     passwd = web.find_element_by_id("password")
     passwd.send_keys("{}".format(password))
     btn = web.find_element_by_id("passbutton")
     btn.click()
+    time.sleep(2)
+    print(web.get_cookies())
     cookie = web.get_cookies()[0]['value']
     web.quit()
     return cookie
