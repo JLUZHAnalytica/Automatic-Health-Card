@@ -64,7 +64,7 @@ def complete(number):
     if len(query_record(number, headers)) != 0:
         print(f"学号 {number} 今日已经提交过健康卡，程序将不再提交")
         return False
-    last_card = query_record(number, False)[0]
+    last_card = query_record(number, headers, False)[0]
     health_card_data = {
         "entity": {
             "sqrid": last_card["SQRID"],
