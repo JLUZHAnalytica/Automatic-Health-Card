@@ -1,6 +1,9 @@
-
 *.json
 *.chls
 *.pyc
 setting.py
 setting.py
+__pycache__/
+.DS_Store
+.vscode/
+.idea/
