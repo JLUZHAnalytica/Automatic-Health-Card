@@ -1,0 +1,35 @@
+name: AutomaticHealthyCard
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 16 * * *
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    name: healthy_card
+    env:
+      TZ: Asia/Shanghai
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # repository: JLUZHAnalytica/Automatic-Health-Card
+          repository: VidocqH/Automatic-Health-Card
+          ref: action
+      - name: Use python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+          architecture: 'x64'
+      - name: Run task
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          RANGE: ${{ secrets.RANGE }}
+        run: |
+          ls -lha
+          pipenv install
+          python ./auto_health.py
