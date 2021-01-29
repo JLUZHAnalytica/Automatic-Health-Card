@@ -31,5 +31,5 @@ jobs:
           RANGE: ${{ secrets.RANGE }}
         run: |
           ls -lha
-          pipenv install
+          pip install -r requirements.txt
           python ./auto_health.py
