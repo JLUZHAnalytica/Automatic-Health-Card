@@ -137,10 +137,15 @@ if __name__ == "__main__":
     #     output_error()
     # else:
     # ran = eval(input('请输入需要填写健康卡的学号范围(格式："19200101","19200130"):'))
-    ran = os.environ['RANGE']
+    rangeEnv = os.environ['RANGE']
     # if len(ran[0]) != 8:
     #     print("学号输入格式错误，请重新输入。")
     # else:
+    if ':' in rangeEnv:
+        idx = rangeEnv.find(':')
+        startNo = rangeEnv[:idx]
+        stopNo = rangeEnv[idx+1:]
+        ran = [startNo, stopNo]
     if ran[0][0] == '0':
         ran_s = eval(ran[0][1:])
         ran_e = eval(ran[1][1:])
