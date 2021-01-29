@@ -58,6 +58,8 @@ start  end:需要批量填写健康卡的学号范围
 
 ## Github Action版本
 
+![AutomaticHealthyCard](https://github.com/VidocqH/Automatic-Health-Card/workflows/AutomaticHealthyCard/badge.svg)
+
 Star和Fork本仓库，在`Settings` -> `Secret` 页面点击 `New repository secret` 即可创建新Secret
 创建三个Secret:
 1. `USERNAME`: 你的账号
