@@ -55,3 +55,11 @@ username:学号
 password:密码(一般为身份证后六位)
 
 start  end:需要批量填写健康卡的学号范围
+
+## Github Action版本
+
+Star和Fork本仓库，在`Settings` -> `Secret` 页面点击 `New repository secret` 即可创建新Secret
+创建三个Secret:
+1. `USERNAME`: 你的账号
+2. `PASSWORD`: 你的密码
+3. `RANGE`: `开始的学号:结束的学号` , 如 `19101111:19101333`
