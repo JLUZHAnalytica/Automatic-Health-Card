@@ -146,13 +146,16 @@ if __name__ == "__main__":
         startNo = rangeEnv[:idx]
         stopNo = rangeEnv[idx+1:]
         ran = [startNo, stopNo]
+    arrNo = []
     if ran[0][0] == '0':
-        ran_s = eval(ran[0][1:])
-        ran_e = eval(ran[1][1:])
+        for i in range(int(startNo), int(stopNo)):
+            arrNo.append('0' + str(i))
+        arrNo.append('0' + stopNo)
     else:
-        ran_s = eval(ran[0])
-        ran_e = eval(ran[1])
-    for number in range(ran_s, ran_e+1):
+        for i in range(int(startNo), int(stopNo)):
+            arrNo.append(str(i))
+        arrNo.append(stopNo)
+    for number in arrNo:
         complete(number)
     print(f"总计填写 {ran_e-ran_s+1} 份健康表，其中错误 {len(error_list)} 份")
     output_error()
