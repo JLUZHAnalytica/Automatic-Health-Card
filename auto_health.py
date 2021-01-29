@@ -150,11 +150,10 @@ if __name__ == "__main__":
     if ran[0][0] == '0':
         for i in range(int(startNo), int(stopNo)):
             arrNo.append('0' + str(i))
-        arrNo.append('0' + stopNo)
     else:
         for i in range(int(startNo), int(stopNo)):
             arrNo.append(str(i))
-        arrNo.append(stopNo)
+    arrNo.append(stopNo)
     for number in arrNo:
         complete(number)
     print(f"总计填写 {ran_e-ran_s+1} 份健康表，其中错误 {len(error_list)} 份")
