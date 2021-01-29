@@ -156,5 +156,5 @@ if __name__ == "__main__":
     arrNo.append(stopNo)
     for number in arrNo:
         complete(number)
-    print(f"总计填写 {ran_e-ran_s+1} 份健康表，其中错误 {len(error_list)} 份")
+    print(f"总计填写 {len(arrNo)} 份健康表，其中错误 {len(error_list)} 份")
     output_error()
