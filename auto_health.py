@@ -146,6 +146,10 @@ if __name__ == "__main__":
         startNo = rangeEnv[:idx]
         stopNo = rangeEnv[idx+1:]
         ran = [startNo, stopNo]
+    else:
+        complete(rangeEnv)
+        output_error()
+        exit()
     arrNo = []
     if ran[0][0] == '0':
         for i in range(int(startNo), int(stopNo)):
