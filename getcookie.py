@@ -27,7 +27,8 @@ def getWeb():
     # options.add_argument(('--proxy-server=http://{}:{}'.format(ip,port)))#有的博客写的是'--proxy-server=http://'，就目前我的电脑来看的话需要把http://去掉就可以用，他会自己加的
     # options.add_argument('-headless')  # 无头参数
     # options.headless = True
-    web = webdriver.Chrome(options=options)
+    CHROME_DRIVER = '/usr/local/bin/chromedriver'
+    web = webdriver.Chrome(executable_path=CHROME_DRIVER, options=options)
     url = "https://work.jluzh.edu.cn/default/work/jlzh/jkxxtb/jkxxcj.jsp"
     web.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
         "source": """
