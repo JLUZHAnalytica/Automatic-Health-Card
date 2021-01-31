@@ -123,41 +123,38 @@ def output_error():
 if __name__ == "__main__":
     print("为了全力做好学校新型冠状病毒感染的肺炎疫情防控工作，您承诺使用本软件提交的健康信息全部属实。")
     print("如果需要填报的健康表的同学健康信息相比上次提交时有更新，请停止使用本软件，并及时在网页上进行填报。\n若需要填报与上次提交时一样的健康信息，请继续使用。")
-    # if len(sys.argv) > 1 or input("是否需要打开浏览器自动获取 JSESSIONID (若是请输入1): ") == '1':
-        # try:
     from getcookie import get_cookie
     JSESSIONID = get_cookie(os.environ['USERNAME'], os.environ['PASSWORD'])
-        # except Exception as e:
-            # print("自动提取遇到错误，请使用手动提取 JSESSIONID 方式。 \n错误：" + str(e))
     headers.update({"cookie": "JSESSIONID=" + JSESSIONID})
-    # if len(sys.argv) > 1 or input("请选择填写模式：\nA. 从 setting.py 中读取 number_lsit\nB. 手动输入学号范围\n请输入你的选择（默认B）: ") == "A":
-    #     for number in number_lsit:
-    #         complete(number)
-    #     print(f"总计填写 {len(number_lsit)} 份健康表，其中错误 {len(error_list)} 份")
-    #     output_error()
-    # else:
-    # ran = eval(input('请输入需要填写健康卡的学号范围(格式："19200101","19200130"):'))
+    # 'RANGE' Secret 的输入格式: '08183201:08183213;12183201:12183213'
     rangeEnv = os.environ['RANGE']
-    # if len(ran[0]) != 8:
-    #     print("学号输入格式错误，请重新输入。")
-    # else:
-    if ':' in rangeEnv:
-        idx = rangeEnv.find(':')
-        startNo = rangeEnv[:idx]
-        stopNo = rangeEnv[idx+1:]
-        ran = [startNo, stopNo]
+    # rangeArr example: ['08183201:08183213', '12183201:12183213']
+    if ';' in rangeEnv:
+        rangeArr = rangeEnv.split(';')
     else:
-        complete(rangeEnv)
-        output_error()
-        exit()
+        rangeArr = [rangeEnv]
+    ran = []
+    # ran example: [['08183201', '08183213'], ['12183201', '12183213']]
+    for eachRange in rangeArr:
+        if ':' in eachRange:
+            idx = eachRange.find(':')
+            startNo = eachRange[:idx]
+            stopNo = eachRange[idx+1:]
+            ran.append([startNo, stopNo])
+        else:
+            ran.append([eachRange]) # Just a number
     arrNo = []
-    if ran[0][0] == '0':
-        for i in range(int(startNo), int(stopNo)):
-            arrNo.append('0' + str(i))
-    else:
-        for i in range(int(startNo), int(stopNo)):
-            arrNo.append(str(i))
-    arrNo.append(stopNo)
+    for eachRange in ran:
+        if len(eachRange) == 1:
+            arrNo.append(eachRange[0])
+            continue
+        if eachRange[0][0] == '0':
+            for i in range(int(eachRange[0]), int(eachRange[1])):
+                arrNo.append('0' + str(i))
+        else:
+            for i in range(int(eachRange[0]), int(eachRange[1])):
+                arrNo.append(str(i))
+        arrNo.append(eachRange[1])
     for number in arrNo:
         complete(number)
     print(f"总计填写 {len(arrNo)} 份健康表，其中错误 {len(error_list)} 份")
