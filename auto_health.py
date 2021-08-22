@@ -3,16 +3,17 @@ import json
 import time
 import sys
 from setting import *
+from cas_service import *
 
 headers = {
     "x-requested-with": "XMLHttpRequest",
     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) ,Chrome/84.0.4147.105 Safari/537.36",
     "content-type": "text/json",
-    "origin": "https://work.jluzh.edu.cn",
+    "origin": "https://work.zcst.edu.cn",
     "sec-fetch-site": "same-origin",
     "sec-fetch-mode": "cors",
     "sec-fetch-dest": "empty",
-    "referer": "https://work.jluzh.edu.cn/default/work/jlzh/jkxxtb/jkxxcj.jsp",
+    "referer": "https://work.zcst.edu.cn/default/work/jlzh/jkxxtb/jkxxcj.jsp",
     "accept-encoding": "gzip, deflate, br",
     "accept-language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
     "content-length": "896",
@@ -50,7 +51,7 @@ def query_record(number, headers, only_today=True):
 
 
 def submit(payloads):
-    url = "https://work.jluzh.edu.cn/default/work/jlzh/jkxxtb/com.sudytech.portalone.base.db.saveOrUpdate.biz.ext"
+    url = "https://work.zcst.edu.cn/default/work/jlzh/jkxxtb/com.sudytech.portalone.base.db.saveOrUpdate.biz.ext"
     r = requests.post(url, headers=headers, data=payloads.encode("utf-8"))
     if r.json()["result"] == "1":
         return True
@@ -122,12 +123,15 @@ def output_error():
 if __name__ == "__main__":
     print("为了全力做好学校新型冠状病毒感染的肺炎疫情防控工作，您承诺使用本软件提交的健康信息全部属实。")
     print("如果需要填报的健康表的同学健康信息相比上次提交时有更新，请停止使用本软件，并及时在网页上进行填报。\n若需要填报与上次提交时一样的健康信息，请继续使用。")
-    if len(sys.argv) > 1 or input("是否需要打开浏览器自动获取 JSESSIONID (若是请输入1): ") == '1':
-        try:
-            from getcookie import get_cookie
-            JSESSIONID = get_cookie(username, password)
-        except Exception as e:
-            print("自动提取遇到错误，请使用手动提取 JSESSIONID 方式。 \n错误：" + str(e))
+    # if len(sys.argv) > 1 or input("是否需要打开浏览器自动获取 JSESSIONID (若是请输入1): ") == '1':
+    #     try:
+    #         from getcookie import get_cookie
+    #         JSESSIONID = get_cookie(username, password)
+    #     except Exception as e:
+    #         print("自动提取遇到错误，请使用手动提取 JSESSIONID 方式。 \n错误：" + str(e))
+    session = requests.session()
+    cas_ser = casService(session)
+    JSESSIONID = cas_ser.Login(serviceUrl = "https://work.zcst.edu.cn/default/work/jlzh/jkxxtb/jkxxcj.jsp",username=username,password=password)['JSESSIONID']
     headers.update({"cookie": "JSESSIONID=" + JSESSIONID})
     if len(sys.argv) > 1 or input("请选择填写模式：\nA. 从 setting.py 中读取 number_lsit\nB. 手动输入学号范围\n请输入你的选择（默认B）: ") == "A":
         for number in number_lsit:
