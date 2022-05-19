@@ -55,3 +55,22 @@ username:学号
 password:密码(一般为身份证后六位)
 
 start  end:需要批量填写健康卡的学号范围
+
+## Github Action版本
+
+![AutomaticHealthyCard](https://github.com/VidocqH/Automatic-Health-Card/workflows/AutomaticHealthyCard/badge.svg)
+
+Star和Fork本仓库，在`Settings` -> `Secret` 页面点击 `New repository secret` 即可创建新Secret
+创建三个Secret:
+1. `USERNAME`: 你的账号
+2. `PASSWORD`: 你的密码
+3. `RANGE`: 三种填写方式(选一种)
+    1. `单个学号` , 如 `12345678`
+    2. `开始的学号:结束的学号` , 如 `10000000:10000030`
+    3. 多个学号或区间，用 `;` 隔开，如
+        - `12345678;87654321`
+        - `10000000;20000000:20000030`
+        - `10000000:10000030;20000000:20000030`
+
+创建好后如图所示:
+![image](img/截屏2021-01-31_下午4.21.09.png)
